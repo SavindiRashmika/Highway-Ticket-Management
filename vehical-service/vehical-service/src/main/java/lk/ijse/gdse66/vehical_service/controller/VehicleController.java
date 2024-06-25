@@ -15,17 +15,17 @@ public class VehicleController {
     private VehicleServiceImpl service;
 
     @GetMapping
-    public List<VehicleDTO> getAllUser(){
+    public List<VehicleDTO> getAllVehicle(){
         return service.getAllVehicle();
     }
 
     @PostMapping
-    public VehicleDTO saveUser(@RequestBody VehicleDTO dto){
+    public VehicleDTO saveVehicle(@RequestBody VehicleDTO dto){
         return service.saveVehicle(dto);
     }
 
     @PutMapping
-    public VehicleDTO updateUser(@RequestBody VehicleDTO dto){
+    public VehicleDTO updateVehicle(@RequestBody VehicleDTO dto){
         return service.updateVehicle(dto);
     }
 }
