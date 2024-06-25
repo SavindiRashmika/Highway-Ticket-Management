@@ -8,4 +8,4 @@ eureka:
 
 spring:
   application:
-    name: VEHICLE-SERVICE
+    name: VEHICAL-SERVICE

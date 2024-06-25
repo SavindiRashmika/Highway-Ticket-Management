@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -49,6 +50,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDTO> getAllUser() {
-        return mapper.map(repo.findAll(), new TypeToken<UserDTO>(){}.getType());
+        return mapper.map(repo.findAll(), new TypeToken<ArrayList<UserDTO>>() {
+        }.getType());
     }
 }
