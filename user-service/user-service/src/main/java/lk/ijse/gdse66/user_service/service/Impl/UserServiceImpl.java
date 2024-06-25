@@ -32,12 +32,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO updateUser(UserDTO dto) {
-        return null;
+        if (!repo.existsById(dto.getId())){
+            new RuntimeException("all ready Exits");
+        }
+        return mapper.map(repo.save(mapper.map(dto, User.class)), UserDTO.class);
+
     }
 
     @Override
-    public UserDTO deleteUser(String id) {
-        return null;
+    public void deleteUser(String id) {
+        if (!repo.existsById(id)){
+            new RuntimeException("all ready Exits");
+        }
+        repo.deleteById(id);
     }
 
     @Override

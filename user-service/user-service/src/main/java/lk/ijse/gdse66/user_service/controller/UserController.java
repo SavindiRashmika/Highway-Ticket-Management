@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/user")
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
@@ -21,7 +21,7 @@ public class UserController {
     }
 
     @PostMapping
-    public UserDTO saveUser(UserDTO dto){
+    public UserDTO saveUser(@RequestBody UserDTO dto){
         System.out.println("saveUser");
         return service.saveUser(dto);
     }
@@ -33,9 +33,9 @@ public class UserController {
     }
 
     @DeleteMapping
-    public UserDTO deleteUser(String id){
+    public void deleteUser(String id){
         System.out.println("deleteUser");
-        return service.deleteUser(id);
+        service.deleteUser(id);
     }
 
 }
