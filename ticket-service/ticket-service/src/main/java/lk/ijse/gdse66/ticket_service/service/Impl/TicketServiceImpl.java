@@ -7,11 +7,15 @@ import lk.ijse.gdse66.ticket_service.service.TicketService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -23,13 +27,31 @@ public class TicketServiceImpl implements TicketService {
     @Autowired
     private ModelMapper mapper;
 
+    @Autowired
+    private RestTemplate template;
+
+    public Map<String, Object> getId(String id) {
+        String url = "/api/vehicles/" + id;
+        ResponseEntity<Map> response = template.getForEntity(url, Map.class);
+        return response.getBody();
+    }
 
     @Override
     public TicketDTO saveTicket(TicketDTO ticketDTO) {
         if (repo.existsById(ticketDTO.getId())){
             new RuntimeException("all ready Exits");
         }
-        return mapper.map(repo.save(mapper.map(ticketDTO, Ticket.class)), TicketDTO.class);
+        try {
+            TicketDTO dto = template.getForObject("http://localhost:8080/user/" + ticketDTO.getUserId(), TicketDTO.class);
+            TicketDTO vdto = template.getForObject("http://localhost:8080/vehicle/" + ticketDTO.getVehicleId(), TicketDTO.class);
+            if (dto != null && vdto != null) {
+                return mapper.map(repo.save(mapper.map(ticketDTO, Ticket.class)), TicketDTO.class);
+            } else {
+                throw new RuntimeException("ID does not match: " + ticketDTO.getUserId());
+            }
+        } catch (HttpClientErrorException e) {
+            throw new RuntimeException("Error fetching user: " + e.getMessage());
+        }
     }
 
     @Override
