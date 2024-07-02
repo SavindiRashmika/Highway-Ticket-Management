@@ -56,7 +56,7 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public TicketDTO updateTicket(TicketDTO ticketDTO) {
-        if (repo.existsById(ticketDTO.getId())){
+        if (!repo.existsById(ticketDTO.getId())){
             new RuntimeException("all ready Exits");
         }
         return mapper.map(repo.save(mapper.map(ticketDTO, Ticket.class)), TicketDTO.class);
@@ -75,5 +75,11 @@ public class TicketServiceImpl implements TicketService {
             new RuntimeException("all ready Exits");
         }
         repo.deleteById(id);
+    }
+
+    @Override
+    public TicketDTO findById(String id) {
+        Ticket ticket = repo.findById(id).orElseThrow(() -> new RuntimeException("User not found with id: " + id));
+        return mapper.map(ticket,TicketDTO.class);
     }
 }

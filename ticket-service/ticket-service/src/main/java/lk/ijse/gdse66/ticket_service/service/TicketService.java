@@ -10,4 +10,5 @@ public interface TicketService {
     TicketDTO updateTicket(TicketDTO ticketDTO);
     List<TicketDTO> getAllTicket();
     void deleteTicket(String id);
+    TicketDTO findById(String id);
 }

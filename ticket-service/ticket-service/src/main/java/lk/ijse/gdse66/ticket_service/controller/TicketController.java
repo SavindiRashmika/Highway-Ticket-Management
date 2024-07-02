@@ -36,4 +36,9 @@ public class TicketController {
         System.out.println("deleteTicket");
         service.deleteTicket(id);
     }
+
+    @GetMapping(path = "/{Id}")
+    public TicketDTO getById(@PathVariable("Id") String id){
+        return service.findById(id);
+    }
 }

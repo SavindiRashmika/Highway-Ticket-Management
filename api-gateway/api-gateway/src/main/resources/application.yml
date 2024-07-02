@@ -27,3 +27,7 @@ spring:
             uri: lb://TICKET-SERVICE
             predicates:
               - path=/ticket/**
+          - id: PAYMENT-SERVICE
+            uri: lb://PAYMENT-SERVICE
+            predicates:
+              - path=/payment/**
