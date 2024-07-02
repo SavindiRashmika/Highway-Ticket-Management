@@ -45,4 +45,10 @@ public class VehicleServiceImpl implements VehicleService {
         return mapper.map(repo.findAll(), new TypeToken<ArrayList<VehicleDTO>>() {
         }.getType());
     }
+
+    @Override
+    public VehicleDTO findById(String id) {
+        Vehicle vehicle = repo.findById(id).orElseThrow(() -> new RuntimeException("vehicle not found with id: " + id));
+        return mapper.map(vehicle,VehicleDTO.class);
+    }
 }

@@ -23,3 +23,7 @@ spring:
             uri: lb://VEHICAL-SERVICE
             predicates:
               - path=/vehicle/**
+          - id: TICKET-SERVICE
+            uri: lb://TICKET-SERVICE
+            predicates:
+              - path=/ticket/**

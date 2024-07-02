@@ -53,4 +53,10 @@ public class UserServiceImpl implements UserService {
         return mapper.map(repo.findAll(), new TypeToken<ArrayList<UserDTO>>() {
         }.getType());
     }
+
+    @Override
+    public UserDTO findUserById(String id) {
+        User user = repo.findById(id).orElseThrow(() -> new RuntimeException("User not found with id: " + id));
+        return mapper.map(user,UserDTO.class);
+    }
 }

@@ -19,6 +19,11 @@ public class UserController {
         return service.getAllUser();
     }
 
+    @GetMapping(path = "/{Id}")
+    public UserDTO getById(@PathVariable("Id") String id){
+        return service.findUserById(id);
+    }
+
     @PostMapping
     public UserDTO saveUser(@RequestBody UserDTO dto){
         System.out.println("saveUser");
@@ -26,13 +31,13 @@ public class UserController {
     }
 
     @PutMapping
-    public UserDTO updateUser(UserDTO dto){
+    public UserDTO updateUser(@RequestBody UserDTO dto){
         System.out.println("updateUser");
         return service.updateUser(dto);
     }
 
-    @DeleteMapping
-    public void deleteUser(String id){
+    @DeleteMapping(path = "/{id}")
+    public void deleteUser(@PathVariable String id){
         System.out.println("deleteUser");
         service.deleteUser(id);
     }
